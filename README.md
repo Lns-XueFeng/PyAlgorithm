@@ -5,7 +5,7 @@
 ### 时间安排
 - 2023.02.27 - 2023.05.14
 - 共分为11周，每周一个Chapter
-- 每个Chapter中有具体时间安排
+- Chapter中有具体时间安排（\_\_init__.py中）
 
 ### 学什么？
 - 跟着B站陈斌老师规划好的视频[自学顺序](https://www.bilibili.com/read/cv17415452?spm_id_from=333.999.list.card_opus.click)
