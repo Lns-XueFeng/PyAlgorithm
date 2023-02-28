@@ -63,8 +63,12 @@ ADT实现：数据结构Data Structure
 # 例如以下伪代码：
 class ShoppingCart:
     def __init__(self):
-        self.shopping_cart = []
-        self.selected_cart = []
+        self.__shopping_cart = []
+        self.__selected_cart = []
+        
+    def show_shopping(self):
+        ''''''
+        pass
 
     def add(self, goods):
         '''往购物车中添加商品'''
