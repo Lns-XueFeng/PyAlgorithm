@@ -21,12 +21,12 @@ CreateTime: 2023.03.01
 from stack import Stack
 
 
-def matches(strings):
+def matches(string):
     bracket_stack = Stack()
     left_bracket_dict = {"(": 1, "{": 2, "[": 3}
     right_bracket_dict = {")": 1, "}": 2, "]": 3}
 
-    for s in strings:
+    for s in string:
         if s in "({[":
             bracket_stack.push(s)
         if s in ")}]":
@@ -44,8 +44,8 @@ def matches(strings):
 
 
 if __name__ == "__main__":
-    strings = "((({{{[[[[人生苦短，我学Python]]]]}}})))"
-    if matches(strings):
+    words = "((({{{[[[[人生苦短，我用Python]]]]}}})))"
+    if matches(words):
         print("此字符串括号均成对")
     else:
         print("此字符串括号有不成对的")
