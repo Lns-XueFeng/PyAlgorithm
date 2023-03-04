@@ -21,26 +21,24 @@ CreateTime: 2023.03.01
 from stack import Stack
 
 
-def matches(string):
+def matches(string: str):
     bracket_stack = Stack()
-    left_bracket_dict = {"(": 1, "{": 2, "[": 3}
-    right_bracket_dict = {")": 1, "}": 2, "]": 3}
+    bracket_dict = {"(": 1, "{": 2, "[": 3, ")": 1, "}": 2, "]": 3}
 
     for s in string:
         if s in "({[":
             bracket_stack.push(s)
         if s in ")}]":
+            temp = bracket_stack.pop()
             if not bracket_stack.isEmpty():
-                temp = bracket_stack.pop()
-                if left_bracket_dict[temp] != right_bracket_dict[s]:
+                if bracket_dict[temp] != bracket_dict[s]:
                     return False
             else:
                 return False
 
-    if bracket_stack.isEmpty():
-        return True
-    else:
+    if not bracket_stack.isEmpty():
         return False
+    return True
 
 
 if __name__ == "__main__":
