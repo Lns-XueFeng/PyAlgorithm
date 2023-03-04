@@ -26,3 +26,6 @@ class Stack:
 
     def items(self):
         return self.__items
+
+    def see_top(self):
+        return self.__items[-1]   # 为方便OJ题2的解决
