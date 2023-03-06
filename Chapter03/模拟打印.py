@@ -73,8 +73,7 @@ from queue_ import Queue
 
 class Printer:
     def __init__(self, mode):
-        # 正常模式每分钟打印五页
-        self.printer_speed = mode
+        self.printer_speed = mode   # 正常模式每分钟打印五页
         self.current_task = None
         self.task_need_time = None
 
@@ -84,10 +83,12 @@ class Printer:
         return False
 
     def set_process(self, task):
+        """处理之前的预设置"""
         self.current_task = task
         self.task_need_time = self.current_task.need_print_pages * 60 // self.printer_speed
 
     def process(self, current_time, waste_time_list):
+        """每一秒的打印机处理"""
         if self.task_need_time == 0:
             self.current_task.finish = True
             self.current_task.set_wait_time(current_time)
@@ -105,14 +106,16 @@ class Task:
         self.wait_time = None
 
     def set_wait_time(self, current_time):
+        """计算得任务在队列中等待了多久"""
         self.wait_time = current_time - self.start_time
 
 
 def simulation(total_time, pages_per_min):
+    """模拟在规定时间规定打印速度内模拟情况"""
     waste_time_list = []
     queue = Queue()
     printer = Printer(pages_per_min)
-    for i in range(total_time):
+    for i in range(total_time):   # 统一时间框架
         is_gen_success = gen_task()
         if is_gen_success:
             rand_num = random.randrange(1, 21)
@@ -128,6 +131,10 @@ def simulation(total_time, pages_per_min):
 
 
 def gen_task():
+    """
+    以1/180的概率生成任务，
+    1/180是根据具体实例计算得来：“这一小时内，每人会发起两次左右的打印，每次1-20页”
+    """
     value = random.randrange(1, 181)
     if value == 180:
         return True
