@@ -7,24 +7,27 @@
 - 共分为12周，每周一个Chapter
 - Chapter中有具体时间安排（\_\_init__.py中）
 
-### Chapter有什么？
-- 常见数据结构的Python实现
-- 常见的算法的Python实现
-- 慕课布置的作业，并记录问题及其实现代码
-
 ### 学什么？
 - 掌握常见数据结构
 - 掌握常见的算法
 - 掌握解决复杂问题的能力
 
 ### 怎么学？
-- 跟着B站陈斌老师规划好的视频[自学顺序](https://www.bilibili.com/read/cv17415452?spm_id_from=333.999.list.card_opus.click)
-- 买一本[《Python数据结构与算法》](https://book.douban.com/subject/34785178/)书籍
+- 按照B站陈斌老师设计好的[视频顺序](https://www.bilibili.com/read/cv17415452?spm_id_from=333.999.list.card_opus.click)
+- 购买一本[《Python数据结构与算法》](https://book.douban.com/subject/34785178/)书籍
+- 独立的完成经典问题、数据结构、算法、OJ题的代码实现
 - 保留兴趣，保持耐心，不断地code
+
+### Chapter有什么？
+- 一些自己的感悟与思考
+- 常见数据结构的Python实现
+- 常见的算法的Python实现
+- 慕课的OJ算法题，并记录问题、思路、代码实现
 
 ### 结语
 希望在学习完之后：
+- 具备设计良好接口的能力
 - 掌握简化复杂问题的能力
 - 熟练掌握常见的数据结构与算法
-- 掌握运用常见数据结构来有效的表示问题中的数据
+- 能运用常见数据结构有效表示问题中的数据
 - 掌握能够设计合适的算法来解决问题
