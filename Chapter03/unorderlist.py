@@ -41,6 +41,7 @@ class Node:
 class UnOrderList:
     def __init__(self, *args):
         # 因为要手动遍历演示，故不用self.__node
+        # self._node总是指向新连接的节点
         self._node = Node(list(args)[0])
         self._node.set_next(None)
         if len(args) > 1:
@@ -113,7 +114,7 @@ class UnOrderList:
             current_node.set_next(new_node)
 
     def index(self, value):
-        """从后往前遍历，因此最后需要用无序表长度-count"""
+        """从后往前遍历，因此最后需要用无序表长度length-count"""
         count = 1
         un_order_list_length = self.length()
         current_node = self._node
