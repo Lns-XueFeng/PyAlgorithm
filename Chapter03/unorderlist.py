@@ -40,30 +40,33 @@ class Node:
 
 class UnOrderList:
     def __init__(self, *args):
-        self.node = Node(list(args)[0])
-        self.node.set_next(None)
+        # 因为要手动遍历演示，故不用self.__node
+        self._node = Node(list(args)[0])
+        self._node.set_next(None)
         if len(args) > 1:
             for v in list(args)[1:]:
                 new_node = Node(v)
-                new_node.set_next(self.node)
-                self.node = new_node
+                new_node.set_next(self._node)
+                self._node = new_node
+        self.__iter_next = self._node
+        self.__next_run_one = False
 
     def append(self, value):
         """将value添加到链表头部，但是是列表最右边"""
         new_node = Node(value)
-        new_node.set_next(self.node)
-        self.node = new_node
+        new_node.set_next(self._node)
+        self._node = new_node
 
     def pop(self):
         """解绑链表头部的引用，新引用它的第二个"""
-        self.node = self.node.get_next()
+        self._node = self._node.get_next()
 
     def remove(self, value):
         """移除某个值，需处理两种情况"""
-        current_node = self.node
-        next_node = self.node.get_next()
+        current_node = self._node
+        next_node = self._node.get_next()
         if current_node.value() == value:
-            self.node = self.node.get_next()
+            self._node = self._node.get_next()
             return
 
         while next_node is not None:
@@ -76,7 +79,7 @@ class UnOrderList:
 
     def length(self):
         """遍历计算无序表的长度，并且为insert的实现提供便利"""
-        current_node = self.node
+        current_node = self._node
         count = 1
         while current_node.get_next() is not None:
             current_node = current_node.get_next()
@@ -94,7 +97,7 @@ class UnOrderList:
 
         pin = un_order_list_length - index
         count = 1
-        current_node = self.node
+        current_node = self._node
         while current_node.get_next() is not None:
             if count == pin:
                 new_node = Node(value)
@@ -113,7 +116,7 @@ class UnOrderList:
         """从后往前遍历，因此最后需要用无序表长度-count"""
         count = 1
         un_order_list_length = self.length()
-        current_node = self.node
+        current_node = self._node
 
         while current_node.get_next() is not None:
             if current_node.value() == value:
@@ -127,13 +130,42 @@ class UnOrderList:
         raise NotFoundValue
 
     def reverse(self):
-        pass
+        """循环遍历链表，从头部到尾部（列表右端到左边）
+        1.先处理链表头部
+        2.设置三个指针指向self._node[begin], next_node[medium], next_next_node[last]
+        通过移动它们达到将整个链表除头尾的都反向
+        3.最后处理尾部末尾的节点，将其作为链表头部，并指向下一个（变成列表最右端）
+        """
+        # 处理头部
+        pre_node = self._node   # begin
+        next_node = self._node.get_next()   # medium
+        self._node.set_next(None)
+        # 处理中间
+        while next_node.get_next() is not None:
+            # 移动三个指针begin、medium、last
+            next_next_node = next_node.get_next()   # last
+            next_node.set_next(pre_node)
+            pre_node = next_node
+            next_node = next_next_node
+        # 处理尾部
+        if next_node.get_next() is None:
+            next_node.set_next(pre_node)
+            self._node = next_node
 
     def __iter__(self):
-        pass
+        return self
 
     def __next__(self):
-        pass
+        if not self.__next_run_one:
+            self.__next_run_one = True
+            return self._node.value()
+
+        if self.__iter_next.get_next() is None:
+            self.__iter_next.value()
+            raise StopIteration
+
+        self.__iter_next = self.__iter_next.get_next()
+        return self.__iter_next.value()
 
 
 if __name__ == "__main__":
@@ -142,8 +174,8 @@ if __name__ == "__main__":
     list_ = UnOrderList(1, 2, 3)
 
     # 手动遍历：验证实现的正确性
-    print(list_.node.value())
-    n_node = list_.node.get_next()
+    print(list_._node.value())
+    n_node = list_._node.get_next()
     print(n_node.value())
     n_node = n_node.get_next()
     print(n_node.value())
@@ -157,3 +189,5 @@ if __name__ == "__main__":
     list_.insert(0, 'a')   # a, 1, 2
     print(list_.index('a'))
     list_.reverse()
+    for i in list_:
+        print(i)
