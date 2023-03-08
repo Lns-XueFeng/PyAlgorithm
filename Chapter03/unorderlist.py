@@ -48,7 +48,7 @@ class UnOrderList:
                 new_node = Node(v)
                 new_node.set_next(self._node)
                 self._node = new_node
-        self.__iter_next = self._node
+        self.__iter_next = None
         self.__next_run_one = False
 
     def append(self, value):
@@ -158,14 +158,15 @@ class UnOrderList:
     def __next__(self):
         if not self.__next_run_one:
             self.__next_run_one = True
-            return self._node.value()
+            self.__iter_next = self._node
+            return self.__iter_next.value()
 
-        if self.__iter_next.get_next() is None:
-            self.__iter_next.value()
-            raise StopIteration
+        if self.__iter_next.get_next() is not None:
+            self.__iter_next = self.__iter_next.get_next()
+            return self.__iter_next.value()
 
-        self.__iter_next = self.__iter_next.get_next()
-        return self.__iter_next.value()
+        self.__iter_next.value()
+        raise StopIteration
 
 
 if __name__ == "__main__":
@@ -187,7 +188,7 @@ if __name__ == "__main__":
     list_.pop()
     list_.remove(3)
     list_.insert(0, 'a')   # a, 1, 2
-    print(list_.index('a'))
-    list_.reverse()
+    list_.index('a')
+    list_.reverse()  # 2, 1, a
     for i in list_:
         print(i)
