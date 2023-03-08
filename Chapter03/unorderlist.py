@@ -188,7 +188,8 @@ if __name__ == "__main__":
     list_.pop()
     list_.remove(3)
     list_.insert(0, 'a')   # a, 1, 2
-    list_.index('a')
+    list_.index('a')   # index: 0
     list_.reverse()  # 2, 1, a
-    for i in list_:
+    for i in list_:   # 逆序遍历，和正常的不同
         print(i)
+    print("到达链表尾部")
