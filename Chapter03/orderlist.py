@@ -33,7 +33,7 @@ class Node:
 
 
 class OrderList:
-    def __init__(self, *args):
+    def __init__(self, *args: int):
         # 暂时用Python提供的内置函数实现参数的有序
         # 后续实现自己的sorted函数来实现初始化有序
         __order_list = sorted(list(args))
@@ -49,12 +49,33 @@ class OrderList:
         self.__iter_next = None
         self.__next_run_one = False
 
-    def add(self):
+    def add(self, value: int):
         """
         基于初始化已经排序的order_list
         add只需在插入的时候遍历链表，找到合适的地方插入即可
         """
-        pass
+        assert type(value) is int
+
+        if value > self._node.value():
+            new_node = Node(value)
+            new_node.set_next(self._node)
+            self._node = new_node
+            return
+
+        current_node = self._node
+        while current_node.get_next() is not None:
+            next_node = current_node.get_next()
+            if current_node.value() > value > next_node.value():
+                new_node = Node(value)
+                new_node.set_next(next_node)
+                current_node.set_next(new_node)
+                return
+            current_node = current_node.get_next()
+
+        if value < current_node.value():
+            new_node = Node(value)
+            new_node.set_next(None)
+            current_node.set_next(new_node)
 
     def remove(self, value):
         """同UnOrderList一致"""
@@ -87,12 +108,24 @@ class OrderList:
 
 if __name__ == "__main__":
     # 提供两种构建方式，不过在构建时就需保持其有序
+    # 暂时仅支持int类型，如果想支持多种数据类型，可通过自定义魔法方法来实现多种类型的排序定义
     list_ex_ = OrderList(2)
-    list_ = OrderList(3, 1, 2)   # 1, 2, 3 -> 头部最大，尾部最小
+    list_ = OrderList(10, 5, 1)   # 1, 2, 3 -> 头部最大，尾部最小
 
     # 手动遍历：验证实现的正确性
     print(list_._node.value())
     n_node = list_._node.get_next()
+    print(n_node.value())
+    n_node = n_node.get_next()
+    print(n_node.value())
+    if n_node.get_next() is None:
+        print("到达链表尾部")
+
+    list_ex_.add(3)
+    list_ex_.add(0)
+    # 手动遍历：验证实现的正确性
+    print(list_ex_._node.value())
+    n_node = list_ex_._node.get_next()
     print(n_node.value())
     n_node = n_node.get_next()
     print(n_node.value())
