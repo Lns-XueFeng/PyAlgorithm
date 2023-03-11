@@ -11,13 +11,13 @@ CreateTime: 2023.03.05
 
 class Queue:
     def __init__(self):
-        self.__items = []   # 定义列表左端为队尾，右端为队首
+        self.__items = []   # 定义列表左端为队首，右端为队尾
 
     def enqueue(self, item):
-        self.__items.insert(0, item)
+        self.__items.append(item)
 
     def dequeue(self):
-        return self.__items.pop()
+        return self.__items.pop(0)
 
     def isEmpty(self):
         return len(self.__items) == 0
