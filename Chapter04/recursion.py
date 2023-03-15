@@ -25,6 +25,8 @@ CreateTime: 2023.03.13
 
 # 数列求和
 def sum_(li):
+    if not li:
+        return 0
     if len(li) == 1:  # 递归退出条件
         return li[0]  # 基本问题
     return li[0] + sum_(li[1:])  # 通过调用自身解决规模更小的问题
@@ -83,4 +85,3 @@ all_li = []
 v_li = [1, 2, 3]
 perm(v_li, 0, len(v_li))
 print(all_li)
-
