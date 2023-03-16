@@ -11,7 +11,7 @@ def convert(number, base):
     return convert(number // base, base) + convert_table[number % base]   # 这里的+号表示的是连接
 
 
-convert(10, 2)   # 1100100
+convert(10, 2)   # 1010
 
 # 和Chapter02”进制转换.py“对比
 # 建议打个断点，debug去看执行情况，变量情况，栈中的情况
