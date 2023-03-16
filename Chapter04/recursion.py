@@ -52,7 +52,7 @@ def factorial(num):
     return num * factorial(num - 1)
 
 
-factorial(4)  # result->24
+factorial(9)  # result->24
 
 
 # 斐波那契数列
