@@ -22,14 +22,20 @@ CreateTime: 2023.03.13
 3数据的结构形式是按递归定义的（树的遍历，图的搜索、嵌套列表）
 """
 
+"""提供几种思路来思考递归
+1.数学归纳法（分解问题）
+2.通过画树状图（单个时只有树干）
+3.通过画栈的调用图解
+"""
+
 
 # 数列求和
 def sum_(li):
     if not li:
         return 0
-    if len(li) == 1:  # 递归退出条件
-        return li[0]  # 基本问题
-    return li[0] + sum_(li[1:])  # 通过调用自身解决规模更小的问题
+    if len(li) == 1:   # 递归退出条件
+        return li[0]   # 基本问题
+    return li[0] + sum_(li[1:])   # 通过调用自身解决规模更小的问题
 
 
 sum_([1, 2, 3, 4, 5])  # result->15
@@ -42,7 +48,7 @@ def reverse_(st):
     return reverse_(st[1:]) + st[0]
 
 
-reverse_("abcdefg")  # result->gfedcba
+reverse_("abcdefg")   # result->gfedcba
 
 
 # 阶乘
@@ -52,7 +58,7 @@ def factorial(num):
     return num * factorial(num - 1)
 
 
-factorial(9)  # result->24
+factorial(9)   # result->24
 
 
 # 斐波那契数列
