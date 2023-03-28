@@ -46,3 +46,6 @@ def binary_search(alist, item):
 testlist = [0, 1, 2, 8, 13, 17, 19, 32, 42, ]
 print(binary_search(testlist, 3))
 print(binary_search(testlist, 13))
+
+
+# 二分查找：体现了分治策略
