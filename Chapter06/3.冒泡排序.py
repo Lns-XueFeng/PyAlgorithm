@@ -42,3 +42,6 @@ def short_bubble_sort(a_list):
 li = [20, 30, 40, 90, 50, 60, 70, 80, 100, 110]
 short_bubble_sort(li)
 print(li)
+
+
+# 思考：优化过的冒泡排序就一定会比没优化的冒泡排序快吗？
