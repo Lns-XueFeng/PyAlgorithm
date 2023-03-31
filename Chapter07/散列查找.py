@@ -1,6 +1,6 @@
 """
 author: Lns-XueFeng
-CreateTime: 2023.03.23
+CreateTime: 2023.03.28
 """
 
 """散列查找
@@ -18,7 +18,7 @@ CreateTime: 2023.03.23
 最著名的近似完美的散列函数：MD5和SHA
 完美散列函数可用于对文件一致性的校验, 仅对比其散列值即可知道其是否一致
 亦可用于加密密码, 这样即可只保存用户密码的散列值, 仅对比散列值判断是否输入正确
-区块链技术
+最酷的应用-:>区块链技术
 """
 
 
@@ -40,7 +40,7 @@ class Node:
 class HashTable:
     """思路
     设置两个列表, __keys与__values, 初始值均为None
-    我选用的是当遇到hash_函数计算的值是一样的时用链表法, 进行链接, 那么就需要None ADT
+    我选用的是当遇到hash_函数计算的值是一样的时用链表法, 进行链接, 那么就需要Node ADT
     __setitem__实现了设置key和value, 当遇到要到同一个槽的时, 新节点链接旧节点, 新节点替换旧节点所在位置
     想象这两个列表每一个位置都有一个竖直的桶, 新加入的节点总是在最上方
     __getitem__实现了取key和value, 先取判断key的hash_值是否再相应位置有Node,
@@ -58,7 +58,16 @@ class HashTable:
         self.__keys = [None] * self.size
         self.__values = [None] * self.size
 
-    def hash_(self, key):
+    def hash_(self, key: int or str) -> int:
+        if isinstance(key, str):
+            st = list(key)
+            count = 1
+            total = 0
+            for s in st:
+                a_num = ord(s) * count
+                total = total + a_num
+                count = count + 1
+            return total % self.size
         return key % self.size
 
     def __getitem__(self, key):
@@ -67,10 +76,12 @@ class HashTable:
         temp_v = self.__values[index]
         if temp_k is None:
             return None
-        else:
+        elif isinstance(temp_k, Node) and isinstance(temp_v, Node):
             # 如果第一个就是key, 那么返回value
             if temp_k.get_value() == key:
                 return temp_v.get_value()
+        else:
+            raise TypeError
         count = 0   # 计算循环了几次找到key, 然后用来找value
         # 寻找对应的keyNode
         while temp_k.get_value() != key:
@@ -113,24 +124,21 @@ if __name__ == "__main__":
     H[44] = "goat"
     H[55] = "pig"
     H[20] = "chicken"
+    H["cat"] = 54
+    H["dog"] = 26
+    H["lion"] = 93
+    H["tiger"] = 17
+    H["bird"] = 77
+    H["cow"] = 31
+    H["goat"] = 44
+    H["pig"] = 55
+    H["chicken"] = 20
     print("-----------")
-    print(H[54])
-    print(H[26])
-    print(H[93])
-    print(H[17])
-    print(H[77])
-    print(H[31])
-    print(H[44])
-    print(H[55])
-    print(H[20])
+    for s in [54, 26, 93, 17, 77, 31, 44, 55, 20,
+              "cat", "dog", "lion", "tiger", "bird", "cow", "goat", "pig", "chicken"]:
+        print(H[s])
     print("-----------")
-    print(H[1])
-    print(H[2])
-    print(H[3])
-    print(H[4])
-    print(H[5])
-    print(H[6])
-    print(H[7])
-    print(H[8])
-    print(H[9])
+    for n in [1, 2, 3, 4, 5, 6, 7, 8, 9,
+              'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']:
+        print(H[n])
     print("-----------")
